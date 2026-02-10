@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getExpenses, createExpense } from "./api/expenses";
+import { getExpenses, createExpense, updateExpense } from "./api/expenses";
 import type { Expense } from "./api/types";
 
 function App() {
@@ -11,6 +11,7 @@ function App() {
   const [amount, setAmount] = useState<string>("");
   const [date, setDate] = useState<string>("");
   const [category, setCategory] = useState<string>("");
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   useEffect(() => {
     getExpenses()
@@ -19,10 +20,10 @@ function App() {
   }, []);
 
   // Función para enviar el formulario
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newExpense = {
+    const expenseData = {
       title,
       amount: Number(amount),
       date,
@@ -30,16 +31,36 @@ function App() {
     };
 
     try {
-      const created = await createExpense(newExpense);
-      setExpenses([...expenses, created]); // actualizar lista
-      setTitle(""); // limpiar formulario
+      if (editingId) {
+        // Editar gasto existente
+        const updated = await updateExpense(editingId, expenseData);
+        setExpenses(
+          expenses.map((exp) => (exp.id === editingId ? updated : exp)),
+        );
+        setEditingId(null); // dejar de editar
+      } else {
+        // Crear nuevo gasto
+        const created = await createExpense(expenseData);
+        setExpenses([...expenses, created]);
+      }
+
+      // Limpiar formulario
+      setTitle("");
       setAmount("");
       setDate("");
       setCategory("");
     } catch (error) {
-      console.error("Error creating expense:", error);
-      alert("Error creating expense");
+      console.error("Error saving expense:", error);
+      alert("Error saving expense");
     }
+  };
+
+  const handleEdit = (expense: Expense) => {
+    setEditingId(expense.id);
+    setTitle(expense.title);
+    setAmount(expense.amount.toString());
+    setDate(expense.date);
+    setCategory(expense.category || "");
   };
 
   if (loading) return <p>Loading...</p>;
@@ -84,15 +105,23 @@ function App() {
             setCategory(e.target.value)
           }
         />
-        <button type="submit">Add Expense</button>
+        <button type="submit">
+          {editingId ? "Update Expense" : "Add Expense"}
+        </button>
       </form>
 
       {/* Listado de gastos */}
       <ul>
-        {expenses.map((exp: Expense) => (
+        {expenses.map((exp) => (
           <li key={exp.id}>
             {exp.title} - {exp.amount} - {exp.date} -{" "}
             {exp.category || "No category"}
+            <button
+              onClick={() => handleEdit(exp)}
+              style={{ marginLeft: "10px" }}
+            >
+              Edit
+            </button>
           </li>
         ))}
       </ul>
