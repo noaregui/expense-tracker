@@ -16,4 +16,9 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 3000);
 }
-bootstrap();
+
+// Manejo de posibles errores al iniciar el servidor
+bootstrap().catch((err) => {
+  console.error('Error starting server:', err);
+  process.exit(1); // Salida con error
+});
