@@ -140,8 +140,16 @@ function App() {
       <ul>
         {expenses.map((exp) => (
           <li key={exp.id}>
-            {exp.title} - {exp.amount} - {exp.date} -{" "}
-            {exp.category || "No category"}
+            <strong>Título:</strong> {exp.title} <br />
+            <strong>Costo:</strong>{" "}
+            {new Intl.NumberFormat("es-ES", {
+              style: "currency",
+              currency: "EUR",
+            }).format(exp.amount)}{" "}
+            <br />
+            <strong>Fecha:</strong>{" "}
+            {new Date(exp.date).toLocaleDateString("es-ES")} <br />
+            <strong>Categoría:</strong> {exp.category || "No category"}
             <button
               onClick={() => handleEdit(exp)}
               style={{ marginLeft: "10px" }}
