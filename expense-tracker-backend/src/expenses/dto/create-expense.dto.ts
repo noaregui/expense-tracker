@@ -9,7 +9,7 @@ import {
 
 export class CreateExpenseDto {
   @IsString()
-  @MinLength(1, { message: 'El título no puede estar vacío' })
+  @MinLength(3, { message: 'El título no puede estar vacío' })
   title: string;
 
   @IsNumber()
