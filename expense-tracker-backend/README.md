@@ -1,98 +1,170 @@
 <p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+  <a href="https://nestjs.com/" target="_blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+  <p align="center">Backend de una aplicación de seguimiento de gastos (Expense Tracker) construida con <a href="https://nestjs.com/" target="_blank">NestJS</a> y <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>.</p>
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Descripción
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Esta aplicación permite:
 
-## Project setup
+- Registrar un gasto
+- Listar todos los gastos
+- Actualizar parcialmente un gasto existente
 
-```bash
-$ npm install
+La persistencia de datos se realiza en memoria para simplificar la implementación. No se utiliza base de datos real.
+
+---
+
+## Estructura del proyecto
+
+```
+expense-tracker-backend
+├─ .prettierrc
+├─ eslint.config.mjs
+├─ nest-cli.json
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ app.module.ts
+│  ├─ application
+│  │  └─ expenses
+│  │     ├─ create-expense.use-case.ts
+│  │     ├─ list-expenses.use-case.ts
+│  │     └─ update-expense.use-case.ts
+│  ├─ domain
+│  │  └─ entities
+│  │     └─ expense.entity.ts
+│  ├─ expenses
+│  │  ├─ dto
+│  │  │  ├─ create-expense.dto.ts
+│  │  │  └─ update-expense.dto.ts
+│  │  ├─ expenses.controller.spec.ts
+│  │  ├─ expenses.controller.ts
+│  │  ├─ expenses.module.ts
+│  │  └─ expenses.service.spec.ts
+│  ├─ infrastructure
+│  │  └─ expenses.repository.ts
+│  └─ main.ts
+├─ test
+│  ├─ app.e2e-spec.ts
+│  └─ jest-e2e.json
+├─ tsconfig.build.json
+└─ tsconfig.json
+
 ```
 
-## Compile and run the project
+---
+
+## Instalación y ejecución
+
+Instalar dependencias:
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
 ```
 
-## Run tests
+Modo desarrollo (con recarga automática)
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+npm run start:dev
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+Modo producción:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+npm run start:prod
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+---
 
-## Resources
+## Estructura y responsabilidades
 
-Check out a few resources that may come in handy when working with NestJS:
+<ul>
+  <li>src/main.ts: punto de entrada de la aplicación, activa validaciones globales y CORS.</li>
+  <li>src/domain/: contiene las entidades del dominio. Actualmente solo <code>Expense</code>.</li>
+  <li>src/application/expenses/: contiene los casos de uso (<code>CreateExpenseUseCase</code>, <code>ListExpensesUseCase</code>, <code>UpdateExpenseUseCase</code>), que implementan la lógica de negocio y delegan la persistencia al repositorio.</li>
+  <li>src/infrastructure/: implementación de persistencia y acceso a datos. Actualmente <code>ExpensesRepository</code> almacena los gastos en memoria.</li>
+  <li>src/expenses/dto/: definición de los Data Transfer Objects para creación y actualización de gastos (<code>CreateExpenseDto</code> y <code>UpdateExpenseDto</code>).</li>
+  <li>src/expenses/expenses.controller.ts: endpoints HTTP que consumen los casos de uso.</li>
+  <li>src/expenses/expenses.module.ts: módulo que agrupa el controlador y los casos de uso, y registra el repositorio como proveedor.</li>
+  <li>test/: pruebas de integración y unitarias.</li>
+</ul>
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+---
 
-## Support
+## Endpoints disponibles
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+<table>
+  <thead>
+    <tr>
+      <th>Método</th>
+      <th>Endpoint</th>
+      <th>Descripción</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GET</td>
+      <td>/expenses</td>
+      <td>Listar todos los gastos</td>
+    </tr>
+    <tr>
+      <td>POST</td>
+      <td>/expenses</td>
+      <td>Crear un nuevo gasto</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td>/expenses/:id</td>
+      <td>Actualizar parcialmente un gasto existente</td>
+    </tr>
+  </tbody>
+</table>
 
-## Stay in touch
+<p>Todos los endpoints reciben y devuelven <code>JSON</code>.</p>
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+---
 
-## License
+## Validaciones implementadas
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+Se usan `class-validator` y `ValidationPipe` de NestJS para validar automáticamente los datos de entrada.
+
+- **CreateExpenseDto**
+  - `title`: mínimo 3 caracteres
+  - `amount`: número positivo (>= 0.01)
+  - `date`: formato ISO (YYYY-MM-DD)
+  - `category`: opcional
+
+- **UpdateExpenseDto**
+  - Todos los campos son opcionales
+  - Cuando se envían, siguen las mismas reglas de validación que en CreateExpenseDto
+
+---
+
+## Arquitectura y decisiones técnicas
+
+- **Separación de capas (Clean Architecture / CQRS simplificado)**:
+  - **Domain**: entidades del dominio (`Expense`).
+  - **Application**: casos de uso que implementan la lógica de negocio y orquestan las operaciones.
+  - **Infrastructure**: repositorios y servicios externos (por ejemplo, base de datos o almacenamiento en memoria).
+  - **Controller / DTO**: interfaz HTTP y validación de entrada.
+- Esto permite que la lógica de negocio esté desacoplada de la persistencia y de la presentación (HTTP), haciendo el proyecto más escalable y mantenible.
+
+- **Repository pattern**: `ExpensesRepository` actúa como capa de persistencia. Los casos de uso no interactúan directamente con arrays internos ni con el controller.
+
+- **Persistencia en memoria**: simplifica la implementación para el ejercicio; para producción se recomienda reemplazar `ExpensesRepository` por una base de datos real.
+
+- **Endpoints REST**: cada operación del dominio tiene su caso de uso y es expuesta mediante endpoints HTTP.
+
+- **Validaciones automáticas**: con `class-validator` y `ValidationPipe` de NestJS.
+
+---
+
+## Recursos
+
+- [Documentación NestJS](https://docs.nestjs.com/)
+- [Class Validator](https://github.com/typestack/class-validator)
