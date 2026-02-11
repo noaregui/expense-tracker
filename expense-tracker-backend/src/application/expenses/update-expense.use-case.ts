@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { Expense } from '../../domain/entities/expense.entity';
 import { UpdateExpenseDto } from '../../expenses/dto/update-expense.dto';
-import { ExpensesService } from 'src/expenses/expenses.service';
+import { ExpensesRepository } from 'src/infraestructure/expenses.repository';
 
 @Injectable()
 export class UpdateExpenseUseCase {
-  constructor(private readonly expensesService: ExpensesService) {}
+  constructor(private readonly expensesRepository: ExpensesRepository) {}
 
   execute(id: string, updateExpenseDto: UpdateExpenseDto): Expense {
-    return this.expensesService.update(id, updateExpenseDto);
+    return this.expensesRepository.update(id, updateExpenseDto);
   }
 }
