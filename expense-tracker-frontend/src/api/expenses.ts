@@ -8,9 +8,13 @@ export const getExpenses = async (): Promise<Expense[]> => {
   return response.data;
 };
 
+const simulateDelay = (ms: number) =>
+  new Promise((resolve) => setTimeout(resolve, ms));
+
 export const createExpense = async (
   expense: Omit<Expense, "id">,
 ): Promise<Expense> => {
+  await simulateDelay(500);
   const response = await axios.post<Expense>(BASE_URL, expense);
   return response.data;
 };
@@ -19,6 +23,7 @@ export const updateExpense = async (
   id: string,
   expense: Partial<Omit<Expense, "id">>,
 ): Promise<Expense> => {
+  await simulateDelay(500);
   const response = await axios.patch<Expense>(`${BASE_URL}/${id}`, expense);
   return response.data;
 };
