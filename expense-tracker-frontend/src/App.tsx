@@ -13,15 +13,35 @@ function App() {
   const [category, setCategory] = useState<string>("");
   const [editingId, setEditingId] = useState<string | null>(null);
 
+  // Loading al guardar
+  const [formLoading, setFormLoading] = useState(false);
+  // Errores en pantalla
+  const [error, setError] = useState<string | null>(null);
+
   useEffect(() => {
     getExpenses()
       .then((data) => setExpenses(data))
+      .catch(() => setError("Error al cargar los gastos"))
       .finally(() => setLoading(false));
   }, []);
 
   // Función para enviar el formulario
   const handleSubmit = async (e: React.SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setFormLoading(true);
+    setError(null);
+
+    // Validación básica antes de enviar
+    if (title.length < 3) {
+      setError("El título debe tener al menos 3 caracteres");
+      setFormLoading(false);
+      return;
+    }
+    if (Number(amount) <= 0) {
+      setError("La cantidad debe ser positiva");
+      setFormLoading(false);
+      return;
+    }
 
     const expenseData = {
       title,
@@ -49,9 +69,11 @@ function App() {
       setAmount("");
       setDate("");
       setCategory("");
-    } catch (error) {
-      console.error("Error saving expense:", error);
-      alert("Error saving expense");
+    } catch (err) {
+      console.error("Error saving expense:", err);
+      alert("Error al guardar el gasto");
+    } finally {
+      setFormLoading(false);
     }
   };
 
@@ -69,44 +91,48 @@ function App() {
     <div className="App">
       <h1>Expense Tracker</h1>
 
+      {error && <p style={{ color: "red" }}>{error}</p>}
+
       {/* Formulario para crear gasto */}
       <form onSubmit={handleSubmit} style={{ marginBottom: "20px" }}>
         <input
           type="text"
           placeholder="Title"
           value={title}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setTitle(e.target.value)
-          }
+          onChange={(e) => setTitle(e.target.value)}
           required
+          disabled={formLoading}
         />
         <input
           type="number"
           placeholder="Amount"
           value={amount}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setAmount(e.target.value)
-          }
+          onChange={(e) => setAmount(e.target.value)}
           required
+          disabled={formLoading}
         />
         <input
           type="date"
           value={date}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setDate(e.target.value)
-          }
+          onChange={(e) => setDate(e.target.value)}
           required
+          disabled={formLoading}
         />
         <input
           type="text"
           placeholder="Category"
           value={category}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setCategory(e.target.value)
-          }
+          onChange={(e) => setCategory(e.target.value)}
+          disabled={formLoading}
         />
-        <button type="submit">
-          {editingId ? "Update Expense" : "Add Expense"}
+        <button type="submit" disabled={formLoading}>
+          {formLoading
+            ? editingId
+              ? "Updating..."
+              : "Saving..."
+            : editingId
+              ? "Update Expense"
+              : "Add Expense"}
         </button>
       </form>
 
@@ -119,6 +145,7 @@ function App() {
             <button
               onClick={() => handleEdit(exp)}
               style={{ marginLeft: "10px" }}
+              disabled={formLoading}
             >
               Edit
             </button>
