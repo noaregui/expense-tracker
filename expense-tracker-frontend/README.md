@@ -73,3 +73,88 @@ export default defineConfig([
   },
 ])
 ```
+
+```
+expense-tracker-frontend
+├─ eslint.config.js
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ public
+│  └─ vite.svg
+├─ README.md
+├─ src
+│  ├─ api
+│  │  ├─ expenses.ts
+│  │  └─ types.ts
+│  ├─ App.css
+│  ├─ App.tsx
+│  ├─ assets
+│  │  └─ react.svg
+│  ├─ index.css
+│  └─ main.tsx
+├─ tsconfig.app.json
+├─ tsconfig.json
+├─ tsconfig.node.json
+└─ vite.config.ts
+
+```
+```
+expense-tracker-frontend
+├─ eslint.config.js
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ api
+│  │  ├─ expenses.ts
+│  │  └─ types.ts
+│  ├─ App.css
+│  ├─ App.tsx
+│  ├─ index.css
+│  └─ main.tsx
+├─ tsconfig.app.json
+├─ tsconfig.json
+├─ tsconfig.node.json
+└─ vite.config.ts
+
+```
+```
+expense-tracker-frontend
+├─ index.html
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ api
+│  │  ├─ expenses.ts
+│  │  └─ types.ts
+│  ├─ App.css
+│  ├─ App.tsx
+│  ├─ index.css
+│  └─ main.tsx
+├─ tsconfig.app.json
+├─ tsconfig.json
+└─ vite.config.ts
+
+```
+```
+expense-tracker-frontend
+├─ package-lock.json
+├─ package.json
+├─ pages
+│  ├─ index.tsx
+│  └─ _app.tsx
+├─ README.md
+├─ src
+│  ├─ api
+│  │  ├─ expenses.ts
+│  │  └─ types.ts
+│  ├─ App.css
+│  └─ index.css
+├─ tsconfig.app.json
+├─ tsconfig.json
+└─ vite.config.ts
+
+```

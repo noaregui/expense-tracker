@@ -168,3 +168,76 @@ Se usan `class-validator` y `ValidationPipe` de NestJS para validar automáticam
 
 - [Documentación NestJS](https://docs.nestjs.com/)
 - [Class Validator](https://github.com/typestack/class-validator)
+
+```
+expense-tracker-backend
+├─ .prettierrc
+├─ eslint.config.mjs
+├─ nest-cli.json
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ app.module.ts
+│  ├─ application
+│  │  └─ expenses
+│  │     ├─ create-expense.use-case.ts
+│  │     ├─ list-expenses.use-case.ts
+│  │     └─ update-expense.use-case.ts
+│  ├─ domain
+│  │  └─ entities
+│  │     └─ expense.entity.ts
+│  ├─ expenses
+│  │  ├─ dto
+│  │  │  ├─ create-expense.dto.ts
+│  │  │  └─ update-expense.dto.ts
+│  │  ├─ expenses.controller.spec.ts
+│  │  ├─ expenses.controller.ts
+│  │  ├─ expenses.module.ts
+│  │  └─ expenses.service.spec.ts
+│  ├─ infraestructure
+│  │  └─ expenses.repository.ts
+│  └─ main.ts
+├─ test
+│  ├─ app.e2e-spec.ts
+│  └─ jest-e2e.json
+├─ tsconfig.build.json
+└─ tsconfig.json
+
+```
+```
+expense-tracker-backend
+├─ .prettierrc
+├─ eslint.config.mjs
+├─ nest-cli.json
+├─ package-lock.json
+├─ package.json
+├─ README.md
+├─ src
+│  ├─ app.module.ts
+│  ├─ application
+│  │  └─ expenses
+│  │     ├─ create-expense.use-case.ts
+│  │     ├─ list-expenses.use-case.ts
+│  │     └─ update-expense.use-case.ts
+│  ├─ domain
+│  │  └─ entities
+│  │     └─ expense.entity.ts
+│  ├─ expenses
+│  │  ├─ dto
+│  │  │  ├─ create-expense.dto.ts
+│  │  │  └─ update-expense.dto.ts
+│  │  ├─ expenses.controller.spec.ts
+│  │  ├─ expenses.controller.ts
+│  │  ├─ expenses.module.ts
+│  │  └─ expenses.service.spec.ts
+│  ├─ infraestructure
+│  │  └─ expenses.repository.ts
+│  └─ main.ts
+├─ test
+│  ├─ app.e2e-spec.ts
+│  └─ jest-e2e.json
+├─ tsconfig.build.json
+└─ tsconfig.json
+
+```
