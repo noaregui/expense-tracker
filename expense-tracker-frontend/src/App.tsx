@@ -136,24 +136,38 @@ function App() {
         </button>
       </form>
 
-      {/* Listado de gastos */}
       <ul>
         {expenses.map((exp) => (
-          <li key={exp.id}>
-            <strong>Título:</strong> {exp.title} <br />
-            <strong>Costo:</strong>{" "}
-            {new Intl.NumberFormat("es-ES", {
-              style: "currency",
-              currency: "EUR",
-            }).format(exp.amount)}{" "}
-            <br />
-            <strong>Fecha:</strong>{" "}
-            {new Date(exp.date).toLocaleDateString("es-ES")} <br />
-            <strong>Categoría:</strong> {exp.category || "No category"}
+          <li key={exp.id} className="expense-item">
+            <div className="expense-row">
+              <span className="expense-label">Título:</span>
+              <span className="expense-value">{exp.title}</span>
+            </div>
+            <div className="expense-row">
+              <span className="expense-label">Coto:</span>
+              <span className="expense-value">
+                {new Intl.NumberFormat("es-ES", {
+                  style: "currency",
+                  currency: "EUR",
+                }).format(exp.amount)}
+              </span>
+            </div>
+            <div className="expense-row">
+              <span className="expense-label">Fecha:</span>
+              <span className="expense-value">
+                {new Date(exp.date).toLocaleDateString("es-ES")}
+              </span>
+            </div>
+            <div className="expense-row">
+              <span className="expense-label">Categoría:</span>
+              <span className="expense-value">
+                {exp.category || "No category"}
+              </span>
+            </div>
             <button
               onClick={() => handleEdit(exp)}
-              style={{ marginLeft: "10px" }}
               disabled={formLoading}
+              className="edit-button"
             >
               Edit
             </button>
