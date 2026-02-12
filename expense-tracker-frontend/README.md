@@ -1,160 +1,105 @@
-# React + TypeScript + Vite
+<p align="center">
+  <a href="https://nextjs.org/" target="_blank"><img src="https://nextjs.org/static/favicon/favicon-32x32.png" width="32" alt="Next.js Logo" /></a>
+</p>
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+Frontend de la aplicación de seguimiento de gastos (Expense Tracker) construido con <a href="https://nextjs.org/" target="_blank">Next.js</a> y <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>.
+</p>
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Descripción
 
-## React Compiler
+Esta aplicación permite:
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- Listar los gastos existentes desde la API
+- Crear un nuevo gasto
+- Editar un gasto existente
+- Gestionar estados de carga y error en el frontend
 
-Note: This will impact Vite dev & build performances.
+La aplicación consume la API desarrollada en **NestJS** (backend).
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Estructura del proyecto
 
 ```
 expense-tracker-frontend
-├─ eslint.config.js
-├─ index.html
-├─ package-lock.json
-├─ package.json
-├─ public
-│  └─ vite.svg
-├─ README.md
-├─ src
-│  ├─ api
-│  │  ├─ expenses.ts
-│  │  └─ types.ts
-│  ├─ App.css
-│  ├─ App.tsx
-│  ├─ assets
-│  │  └─ react.svg
-│  ├─ index.css
-│  └─ main.tsx
-├─ tsconfig.app.json
-├─ tsconfig.json
-├─ tsconfig.node.json
-└─ vite.config.ts
-
-```
-```
-expense-tracker-frontend
-├─ eslint.config.js
-├─ index.html
-├─ package-lock.json
-├─ package.json
-├─ README.md
-├─ src
-│  ├─ api
-│  │  ├─ expenses.ts
-│  │  └─ types.ts
-│  ├─ App.css
-│  ├─ App.tsx
-│  ├─ index.css
-│  └─ main.tsx
-├─ tsconfig.app.json
-├─ tsconfig.json
-├─ tsconfig.node.json
-└─ vite.config.ts
-
-```
-```
-expense-tracker-frontend
-├─ index.html
-├─ package-lock.json
-├─ package.json
-├─ README.md
-├─ src
-│  ├─ api
-│  │  ├─ expenses.ts
-│  │  └─ types.ts
-│  ├─ App.css
-│  ├─ App.tsx
-│  ├─ index.css
-│  └─ main.tsx
-├─ tsconfig.app.json
-├─ tsconfig.json
-└─ vite.config.ts
-
-```
-```
-expense-tracker-frontend
+├─ next-env.d.ts
 ├─ package-lock.json
 ├─ package.json
 ├─ pages
-│  ├─ index.tsx
-│  └─ _app.tsx
+│ ├─ index.tsx        //Página principal de la aplicación
+│ └─ _app.tsx         //Componente que envuelve todas las páginas
 ├─ README.md
 ├─ src
-│  ├─ api
-│  │  ├─ expenses.ts
-│  │  └─ types.ts
-│  ├─ App.css
-│  └─ index.css
-├─ tsconfig.app.json
-├─ tsconfig.json
-└─ vite.config.ts
+│ ├─ api
+│ │ ├─ expenses.ts    //Funciones para interactuar con el backend (GET, POST, PATCH)
+│ │ └─ types.ts       //Tipos TypeScript para los gastos
+│ ├─ App.css          //Estilos específicos de la aplicación
+│ └─ index.css        //Estilos globales
+└─ tsconfig.json      //Configuración de TypeScript
 
 ```
+
+---
+
+## Instalación y ejecución
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Modo desarrollo (con recarga automática):
+
+```bash
+npm run dev
+```
+
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación.
+
+---
+
+## Funcionalidades principales
+
+- **Listar gastos:** se consumen los datos del backend y se muestran en una lista con formato de € y fecha.
+
+- **Crear gasto:** formulario que valida título, cantidad y fecha antes de enviar.
+
+- **Editar gasto:** se precargan los datos del gasto seleccionado para modificarlo.
+
+- **Manejo de estados:** loading mientras se cargan datos y alertas en caso de errores.
+
+---
+
+## Consideraciones técnicas
+
+- **Next.js + TypeScript:** estructura basada en páginas y componentes funcionales.
+
+- **Consumo de API con Axios:** funciones centralizadas en `src/api/expenses.ts`.
+
+- **CSS modular:** estilos globales en `index.css` y específicos en `App.css`.
+
+- **Gestión de estado local:** hooks `useState` y `useEffect`.
+
+- **Responsive:** contenido centrado.
+
+---
+
+## Decisiones y trade-offs
+
+- No se usa gestión de estado global (Redux/Context) porque la app es pequeña.
+
+- No se implementó UI avanzada ni librerías externas de componentes.
+
+- Persistencia y lógica de negocio delegada al backend; frontend enfocado en presentación y consumo de API.
+
+---
+
+## Recursos
+
+- [Documentación Next.js](https://nextjs.org/docs)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Axios](https://axios-http.com/)
