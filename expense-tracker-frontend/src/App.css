@@ -1,4 +1,4 @@
-#root {
+.App {
   max-width: 600px;
   margin: 50px auto;
   padding: 2rem;
@@ -32,16 +32,8 @@ button {
 ul {
   list-style: none;
   padding: 0;
-  text-align: left;
   margin: 0;
-}
-
-li {
-  margin-bottom: 5px;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 0;
-  list-style: none;
+  text-align: left;
 }
 
 .expense-item {
