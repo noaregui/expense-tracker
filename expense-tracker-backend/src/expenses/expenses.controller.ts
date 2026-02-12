@@ -5,7 +5,9 @@ import { UpdateExpenseUseCase } from '../application/expenses/update-expense.use
 import { CreateExpenseDto } from './dto/create-expense.dto';
 import { UpdateExpenseDto } from './dto/update-expense.dto';
 import { Expense } from 'src/domain/entities/expense.entity';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Expenses')
 @Controller('expenses')
 export class ExpensesController {
   constructor(
