@@ -165,7 +165,7 @@ function App() {
             <div className="expense-row">
               <span className="expense-label">Categoría:</span>
               <span className="expense-value">
-                {exp.category || "No category"}
+                {exp.category || "Sin categoría"}
               </span>
             </div>
             <button
