@@ -1,4 +1,9 @@
 <p align="center">
+  <a href="https://nextjs.org/" target="_blank">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg" width="120" alt="Next.js Logo" />
+  </a>
+</p>
+<p align="center">
 Frontend de la aplicación de seguimiento de gastos (Expense Tracker) construido con <a href="https://nextjs.org/" target="_blank">Next.js</a> y <a href="https://www.typescriptlang.org/" target="_blank">TypeScript</a>.
 </p>
 
